@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Will You Be My Valentine?</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Pacifico&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="card">
+            <div class="flex-clmn">
+                <h1>Will You Be My Valentine?</h1>
+                <h3>Someone has a message for you!</h3>
+                <h3>Insert the code you received to see it.</h3>
+
+                <div class="form-wrapper" style="display: grid;">
+                    <form id="search-form" class="form-grid">
+                      <div class="field">
+                        <label for="requestcode">Request code:</label>
+                        <input id="requestcode" type="text">
+                      </div>
+                  
+                      <button type="submit">Search</button>
+                    </form>
+                </div>
+
+                <div class="message">
+                <h2></h2>
+                <h3></h3>
+                
+
+                <div class="button-group" style="display: none;">
+                    <button id="yes" onclick="requestAccepted()">Yes</button>
+                    <button id="no" onclick="changeSizes()">No</button>
+                </div>
+                </div>
+                <div id="success-message" style="display: none;">
+                    <span>Yay! Let's be valentines :3</span>
+                </div>
+            </div>
+        </div>
+
+        <script src="answer.js"></script>
+        <script src="api.js"></script>
+    </body>
+</html>

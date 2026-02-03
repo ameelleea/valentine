@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Will You Be My Valentine?</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Pacifico&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="card">
+            <div class="flex-clmn">
+                <h1>Will You Be My Valentine?</h1>
+                <div class="test">
+                    <h3>Ask your boo to be your valentine!</h3>
+                    <h3>We will send them a message and notify you of their response.</h3>
+                </div>
+
+                <h2>Trust us: this will be an offer they can't refuse!</h2>
+                <button onclick="showForm()">Send a request</button>
+                <span style="font-size: 12px;">Already sent a request? <a href="request_status.html">Click here!</a></span>
+            </div>
+
+            <div class="form-wrapper">
+                <form id="request-form" class="form-grid">
+                
+                  <div class="field">
+                    <label for="submittername">Your Name:</label>
+                    <input id="submittername" type="text">
+                  </div>
+              
+                  <div class="field">
+                    <label for="submitterphone">Your Phone Number:</label>
+                    <input id="submitterphone" type="tel">
+                  </div>
+              
+                  <div class="field">
+                    <label for="destname">Boo's name:</label>
+                    <input id="destname" type="text">
+                  </div>
+              
+                  <div class="field">
+                    <label for="destphone">Boo's phone number:</label>
+                    <input id="destphone" type="tel">
+                  </div>
+              
+                  <button type="submit">Send</button>
+                </form>
+            </div>
+
+            <div id="confirm-message" style="display: none;">
+                <h2>Request sent!</h2>
+                <span>Your request code is CODE</span>
+            </div>
+        </div>
+
+        <script src="index.js"></script>
+        <script src="api.js"></script>
+    </body>
+</html>

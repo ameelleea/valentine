@@ -4,43 +4,24 @@ const path = require("path");
 const { json } = require("body-parser");
 
 const app = express();
-const PORT = 3000;
+const PORT = 8080;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const jsonFilePath = path.join(__dirname, "data/Regione-Emilia-Romagna---Siti-contaminati.json");
-const comunePath = path.join(__dirname, "data/comuni_emilia_romagna.json")
+const jsonFilePath = path.join(__dirname, "data/requests.json");
 
 // Caricamento dati
-function loadSitesFromJSON() {
+function loadRequests() {
   const jsonData = fs.readFileSync(jsonFilePath, "utf-8");
-  const rawData = JSON.parse(jsonData);
+  const data = JSON.parse(jsonData);
 
-  return rawData.map(entry => {
-    const site = {};
-
-    for (const [key, originalKey] of Object.entries(campiSito)) {
-      site[key] = (key === "lat" || key === "lon")
-        ? parseFloat(entry[originalKey])
-        : entry[originalKey];
-    }
-
-    return site;
-  });
+    return data;
 }
 
 // Scrittura dati
 function saveData(data, jsonFilePath) {
-  const mappedData = data.map(entry => {
-    const mapped = {};
-    for (const [key, originalKey] of Object.entries(campiSito)) {
-      mapped[originalKey] = entry[key];
-    }
-    return mapped;
-  });
-
-  fs.writeFile(jsonFilePath, JSON.stringify(mappedData, null, 2), err => {
+  fs.writeFile(jsonFilePath, JSON.stringify(data, null, 2), err => {
     if (err) {
       console.error("Errore nel salvataggio:", err);
     } else {
@@ -51,41 +32,29 @@ function saveData(data, jsonFilePath) {
 
 // --- API ---
 //API GET SITI
-app.get('/siti', (req, res) => {
+app.get('/requests', (req, res) => {
   try {
     // Logging della richiesta
     console.log(`\n---\nRequest:\nGET ${req.originalUrl}\n`);
 
-    const queryKeys = Object.keys(req.query);
-    const data = loadSitesFromJSON();
+    const code = req.query["code"];
+    const data = loadRequests();
 
-    if (queryKeys.length === 0) {
-      let response = {
-        success: true,
-        message: 'Tutti i siti restituiti con successo',
-        results: data
-      };
+    const filtered = data.filter(entry => entry.id === code)[0];
 
-      return res.json(response);
-    }
+    console.log(filtered)
 
-    const filtered = data.filter(sito =>
-      queryKeys.every(key =>
-        sito[key] && sito[key].trim().toLowerCase() === req.query[key].trim().toLowerCase()
-      )
-    );
-
-    if(filtered.length > 0){
+    if(filtered !== undefined){
       response = {
         success: true,
-        message: `${filtered.length} i siti restituiti con successo`,
+        message: `Request found`,
         results: filtered
       }
     }else{
       response = {
         success: true,
-        message: 'Nessun sito trovato corrispondente ai parametri',
-        results: filtered
+        message: 'No request found',
+        results: null
       }
     }
 
@@ -98,22 +67,40 @@ app.get('/siti', (req, res) => {
   }
 });
 
+app.get('/answer', (req, res) => {
+  res.sendFile(
+    path.join(__dirname, 'public', 'answer.html')
+  );
+});
+
+
+// API PUT
+app.put('/requests/:codice', (req, res) => {
+  console.log(`\n---\nRequest:\nPUT ${req.originalUrl}`);
+  console.log('Body:', JSON.stringify(req.body, null, 2));
+
+
+
+
+
+  const response = { success: true, message: 'Sito aggiornato', sito: updated };
+  console.log(`Response:\n${JSON.stringify(response, null, 2)}\n---`);
+  res.status(200).json(response);
+});
+
 // API POST
-app.post('/siti', (req, res) => {
+app.post('/requests', (req, res) => {
   console.log(`\n---\nRequest:\nPOST ${req.originalUrl}`);
   console.log('Body:', JSON.stringify(req.body, null, 2));
-  const newSito = req.body;
-  const data = loadSitesFromJSON();
+  const newRequest = req.body;
+  console.log(newRequest)
+  const data = loadRequests();
 
-  if (data.some(s => s.codice === newSito.codice)){
-    return res.status(409).json({ error: 'Sito già esistente con questo codice' });
-  }
-
-  data.push(newSito);
+  data.push(newRequest)
 
   try {
     saveData(data, jsonFilePath);
-    const response = { success: true, message: 'Sito aggiunto', sito: newSito };
+    const response = { success: true, message: 'Request sent'};
     console.log(`Response:\n${JSON.stringify(response, null, 2)}\n---`);
     res.status(201).json(response);
   } catch (err) {
@@ -122,24 +109,6 @@ app.post('/siti', (req, res) => {
   }
 });
 
-// API PUT
-app.put('/siti/:codice', (req, res) => {
-  console.log(`\n---\nRequest:\nPUT ${req.originalUrl}`);
-  console.log('Body:', JSON.stringify(req.body, null, 2));
-
-  const codice = req.params.codice;
-  const updated = req.body;
-  const data = loadSitesFromJSON();
-  const index = data.findIndex(s => s.codice === codice);
-
-  if (index === -1) return res.status(404).json({ error: 'Sito non trovato' });
-  data[index] = updated;
-  saveData(data, jsonFilePath);
-
-  const response = { success: true, message: 'Sito aggiornato', sito: updated };
-  console.log(`Response:\n${JSON.stringify(response, null, 2)}\n---`);
-  res.status(200).json(response);
-});
 
 // API DELETE
 app.delete('/siti/:codice', (req, res) => {
