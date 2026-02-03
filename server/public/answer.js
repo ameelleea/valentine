@@ -59,4 +59,5 @@ function requestAccepted(){
     document.querySelector(".button-group").style.display = 'none';
 
     document.querySelector("#success-message").style.display = 'block';
+    request.status = 'accepted';
 }

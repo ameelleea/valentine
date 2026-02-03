@@ -12,14 +12,14 @@
         <div class="card">
             <div class="flex-clmn">
                 <h1>Will You Be My Valentine?</h1>
-                <div class="test">
+                <div class="body">
                     <h3>Ask your boo to be your valentine!</h3>
                     <h3>We will send them a message and notify you of their response.</h3>
                 </div>
 
-                <h2>Trust us: this will be an offer they can't refuse!</h2>
-                <button onclick="showForm()">Send a request</button>
-                <span style="font-size: 12px;">Already sent a request? <a href="request_status.html">Click here!</a></span>
+                <h2 class="body">Trust us: this will be an offer they can't refuse!</h2>
+                <button class="body" onclick="showForm()">SEND REQUEST</button>
+                <span class="body click-here">Already sent a request? <a href="status.html">Click here!</a></span>
             </div>
 
             <div class="form-wrapper">
@@ -45,13 +45,14 @@
                     <input id="destphone" type="tel">
                   </div>
               
-                  <button type="submit">Send</button>
+                  <button type="submit">SEND</button>
                 </form>
             </div>
 
             <div id="confirm-message">
                 <h2>Request sent!</h2>
-                <span>Your request code is CODE</span>
+                <div class="code">Your request code is CODE</div>
+                <div class="click-here">To see your request status <a href="status.html">click here</a></div>
             </div>
         </div>
 

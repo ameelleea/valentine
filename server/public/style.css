@@ -41,6 +41,7 @@ h3 {
 
 /* Card */
 .card {
+    background-color: white;
   padding: 2rem;
   border: 1px solid #400112;
   border-radius: 15px;
@@ -67,6 +68,7 @@ button {
 button:hover {
   background-color: white;
   color: #8C0327;
+  border: 1px solid #8C0327;
 }
 
 /* Bottoni e input */
@@ -134,6 +136,10 @@ input {
   margin-top: 1.5rem;
 }
 
+.click-here {
+    font-size: 12px;
+}
+
 #confirm-message, .message, .form-wrapper {
     text-align: center;
     border-top: 1px solid #400112;
@@ -143,7 +149,12 @@ input {
 
 #confirm-message h2 {
     font-family: 'Pacifico';
-    color: #730202;
+    color: #8C0327;
+    font-size: 2rem;
+}
+
+#confirm-message div {
+    margin-top: 1rem;
 }
 
 .message h2{

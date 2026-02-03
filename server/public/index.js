@@ -10,10 +10,16 @@ function showForm(){
     wrapper.style.display = 'grid';
 }
 
+function hideHeader(){
+    let bodies = document.querySelectorAll(".body");
+    bodies.forEach(body => body.style.display = 'none')
+}
+
 function showConfirmMessage(id){
     let confirm = document.querySelector("#confirm-message")
-    confirm.querySelector("span").innerHTML = `Your request code is ${id}`
+    confirm.querySelector(".code").innerHTML = `Your request code is <b>${id}</b>`
     document.querySelector(".form-wrapper").style.display = 'none';
+    hideHeader()
     confirm.style.display = 'block';
 }
 
