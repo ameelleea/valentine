@@ -59,3 +59,31 @@ async function modifyStatus(request) {
     console.error('Errore nella PUT:', error);
   }
 }
+
+async function sendEmail(request, dest) {
+  let email;
+  let destname;
+  let id = request.id;
+
+  if(dest === 'receiver'){
+    email = request.destemail;
+    destname = request.destName;
+  }else{
+    email = request.submitteremail;
+    destname = request.submitterName;
+  }
+
+  fetch('/send-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      to: email,
+      name: destname,
+      code: id,
+      template: dest
+    })
+  })
+  .then(res => res.json())
+  .then(console.log)
+  .catch(console.error);
+}

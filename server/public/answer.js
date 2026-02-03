@@ -65,4 +65,5 @@ async function requestAccepted(){
     document.querySelector("#success-message").style.display = 'block';
     request.status = 'accepted';
     await modifyStatus(request)
+    await sendEmail(request, 'submitter')
 }

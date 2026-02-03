@@ -9,7 +9,23 @@ const PORT = 8080;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+app.use(bodyParser.json());
+
+// Configura il trasportatore SMTP (qui esempio Gmail)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'tuo.email@gmail.com',     // la tua email
+    pass: 'APP_PASSWORD_GMAIL'       // non la password normale! -> usa App Password
+  }
+});
+
 const jsonFilePath = path.join(__dirname, "data/requests.json");
+const emailFilePath = path.join(__dirname, "data/email-template.html")
 
 function loadData() {
   const jsonData = fs.readFileSync(jsonFilePath, "utf-8");
@@ -26,6 +42,17 @@ function saveData(data, jsonFilePath) {
       console.log("File salvato correttamente!");
     }
   });
+}
+
+function generateEmailHtml(name, code) {
+  // Leggi il file HTML
+  let html = fs.readFileSync(emailFilePath, 'utf8');
+
+  // Sostituisci i placeholder
+  html = html.replace('{{name}}', name)
+             .replace('{{code}}', code);
+
+  return html;
 }
 
 // --- API ---
@@ -92,6 +119,30 @@ app.post('/requests', (req, res) => {
   }
 });
 
+// Endpoint per inviare email
+app.post('/send-email', async (req, res) => {
+  const to = req.body.to;
+  const name = req.body.name;
+  const code = req.body.code;
+  const dest = req.body.template;
+  
+  const htmlContent = generateEmailHtml(name, code, dest);
+
+  try {
+    const info = await transporter.sendMail({
+      from: '"Nome Mittente" <tuo.email@gmail.com>',
+      to,
+      subject,
+      html : htmlContent
+    });
+
+    console.log('Messaggio inviato:', info.messageId);
+    res.json({ success: true, messageId: info.messageId });
+  } catch (error) {
+    console.error('Errore invio email:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 
 // API PUT
 app.put('/requests/:codice', (req, res) => {

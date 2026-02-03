@@ -32,15 +32,16 @@ document.querySelector("#request-form").addEventListener('submit', async (e) => 
     const objData = {
     "id" : id,
     "submitterName" : document.getElementById('submittername').value,
-    "submitterPhone" : document.getElementById('submitterphone').value,
+    "submitteremail" : document.getElementById('submitteremail').value,
     "destName" : document.getElementById('destname').value,
-    "destPhone" : document.getElementById('destphone').value,
+    "destemail" : document.getElementById('destemail').value,
     "status" : "pending"
     }
 
     console.log(objData)
 
     await saveRequest(objData)
+    await sendEmail(objData, 'receiver')
 
     showConfirmMessage(id);
 });
