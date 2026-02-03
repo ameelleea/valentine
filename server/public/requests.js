@@ -3,12 +3,14 @@ let request = {}
 document.querySelector("#search-form").addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const code = document.querySelector("#requestcode").value;
-    const message = document.querySelector(".form-wrapper").querySelector("h2");
+    const field = document.querySelector("#requestcode");
+    const code = field.value;
+    const message = document.querySelector(".status");
     request = await getRequest(code);
 
+    field.value = '';
     console.log(request)
-    if(request !== undefined){
+    if(request !== undefined && request !== null){
       let status = request['status'];
       message.innerHTML = `Your request is ${status}`
     }else{

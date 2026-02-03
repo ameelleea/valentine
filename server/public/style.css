@@ -9,9 +9,10 @@ body {
   background-color: #F2F2F2;
 }
 
-h1 {
+.title {
     font-family: 'Pacifico';
     color: #730202;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 /* Titoli */
 h3 {
@@ -95,8 +96,12 @@ input {
   text-align: center;
 }
 
-.form-wrapper h2 {
+.status, #notfound, #success-message {
     margin-top: 2rem;
+    text-align: center;
+    font-family: 'Pacifico';
+    color: #400112;
+    font-size: 1.25rem;
 }
 
 /* Griglia principale */
@@ -118,6 +123,7 @@ input {
 .field label {
   text-align: left;
   font-size: 14px;
+  font-weight: bold;
 }
 
 /* Input */
@@ -140,7 +146,11 @@ input {
     font-size: 12px;
 }
 
-#confirm-message, .message, .form-wrapper {
+#search-form {
+    grid-template-columns: none;
+}
+
+#confirm-message, .message, .form-wrapper, #success-message {
     text-align: center;
     border-top: 1px solid #400112;
     padding-top: 2.5rem;

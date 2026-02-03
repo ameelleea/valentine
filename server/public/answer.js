@@ -16,10 +16,14 @@ function showConfirmMessage(id){
 document.querySelector("#search-form").addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const code = document.querySelector("#requestcode").value;
+    
+    const field = document.querySelector("#requestcode");
+    const code = field.value;
     const message = document.querySelector(".message");
     
     request = await getRequest(code);
+
+    field.value = '';
     
     console.log(request)
     if(request !== undefined && request !== null){
@@ -57,7 +61,7 @@ function changeSizes(){
 
 function requestAccepted(){
     document.querySelector(".button-group").style.display = 'none';
-
+    document.querySelector(".message").style.display = 'none';
     document.querySelector("#success-message").style.display = 'block';
     request.status = 'accepted';
 }
