@@ -17,16 +17,24 @@ document.querySelector("#search-form").addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const code = document.querySelector("#requestcode").value;
-    const message = document.querySelector(".form-wrapper").querySelector("h2");
+    const message = document.querySelector(".message");
+    
     request = await getRequest(code);
-    hideForm();
     
     console.log(request)
-    if(request !== undefined){
-      let status = request['status'];
-      message.innerHTML = `Your request is ${status}`
+    if(request !== undefined && request !== null){
+        document.querySelector(".idle").style.display = 'none';
+        document.querySelector("#notfound").style.display = 'none';
+        message.style.display = 'block';
+      hideForm();
+      let sender = request['submitterName'];
+      let receiver = request['destName']
+      message.querySelector("h2").innerHTML = `Hi ${receiver}! Will you be my valentine?`
+      message.querySelector("h3").innerHTML = `Sincerely, ${sender}`
+
+      document.querySelector(".button-group").style.display = 'block';
     }else{
-      message.innerHTML = "No request found. Are you sure the code is correct?"
+      document.querySelector("#notfound").style.display = 'block';
     }
 });
 

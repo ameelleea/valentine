@@ -1,124 +1,4 @@
 /* Layout di base */
-/** {
-  font-family: 'Roboto Condensed', sans-serif;
-  margin: 0;
-}
-
-body {
-  margin: 0;
-  background-color: white;
-}
-
-h3 {
-    font-weight: normal;
-    color: grey;
-}
-
-.flex-clmn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  margin: 0.5rem 0;
-  text-align: center;
-}
-
-.card {
-  padding: 2.5rem 2rem;
-  border: 1px solid lightgray;
-  border-radius: 15px;
-  margin: 2rem auto;
-  max-width: 600px;
-}
-
-button {
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  border: none;
-  background-color: #025928;
-  padding: 0.6rem 1rem 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-button:hover {
-  background-color: aqua;
-}
-
-button,
-input {
-  font-size: 1rem;
-  padding: 0.6rem 0.8rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  background-color: #F2F2F2;
-}
-
-.form-wrapper {
-  display: grid;
-  place-items: center;
-  border-top: 1px solid gray;
-  padding-top: 2.5rem;
-  margin-top: 2.5rem;
-}
-
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px 24px;
-  width: 100%;
-}
-
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-
-.field label {
-  text-align: left;
-  font-size: 14px;
-}
-
-
-.field input {
-  padding: 10px;
-  font-size: 16px;
-}
-
-
-.form-grid button {
-  grid-column: 1 / -1;
-  justify-self: center;
-  padding: 12px 32px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 1.5rem;
-}
-
-@media (max-width: 600px) {
-  .title {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .options {
-    flex-wrap: wrap;
-  }
-
-  .options button {
-    flex: 1 1 40%;
-  }
-}*/
-
-
-/* Layout di base */
 * {
   font-family: 'Comic Neue', sans-serif;
   margin: 0;
@@ -126,7 +6,7 @@ input {
 }
 
 body {
-  background-color: white;
+  background-color: #F2F2F2;
 }
 
 h1 {
@@ -137,6 +17,16 @@ h1 {
 h3 {
   font-weight: normal;
   color: grey;
+}
+
+/* Hidden elements */
+.form-wrapper,
+#confirm-message,
+#notfound,
+.message,
+.button-group,
+#success-message {
+    display: none;
 }
 
 /* Wrapper principale */
@@ -157,6 +47,9 @@ h3 {
   margin: 2rem auto;
   width: 90%;           /* fluido */
   max-width: 600px;     /* non troppo largo su desktop */
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.12),
+    0 6px 12px rgba(0,0,0,0.08);
 }
 
 /* Bottoni generali */
@@ -192,11 +85,7 @@ input {
 
 /* Centro tutto nella pagina */
 .form-wrapper {
-  display: none;
   place-items: center;
-  border-top: 1px solid #400112;
-  padding-top: 2.5rem;
-  margin-top: 2.5rem;
   width: 90%;
   max-width: 700px;
   margin-left: auto;
@@ -245,7 +134,7 @@ input {
   margin-top: 1.5rem;
 }
 
-#confirm-message {
+#confirm-message, .message, .form-wrapper {
     text-align: center;
     border-top: 1px solid #400112;
     padding-top: 2.5rem;
@@ -255,6 +144,35 @@ input {
 #confirm-message h2 {
     font-family: 'Pacifico';
     color: #730202;
+}
+
+.message h2{
+    color: #8C0327;
+    font-family: 'Pacifico';
+}
+
+.button-group {
+    margin-top: 2rem;
+}
+
+#yes {
+    background-color: green;
+}
+
+#no {
+    background-color: #730202;
+}
+
+#yes:hover {
+    color: green;
+    background-color: white;
+    border: 1px solid green;
+}
+
+#no:hover {
+    color: #730202;
+    background-color: white;
+    border: 1px solid #730202;
 }
 
 a {

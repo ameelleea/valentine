@@ -12,8 +12,11 @@
         <div class="card">
             <div class="flex-clmn">
                 <h1>Will You Be My Valentine?</h1>
-                <h3>Someone has a message for you!</h3>
-                <h3>Insert the code you received to see it.</h3>
+                <div class="idle">
+                    <h3>Someone has a message for you!</h3>
+                    <h3>Insert the code you received to see it.</h3>
+                </div>
+
 
                 <div class="form-wrapper" style="display: grid;">
                     <form id="search-form" class="form-grid">
@@ -26,17 +29,20 @@
                     </form>
                 </div>
 
+                <div id="notfound">
+                    <h2>No request found. Are you sure the code is correct?</h2>
+                </div>
+
                 <div class="message">
                 <h2></h2>
                 <h3></h3>
                 
-
-                <div class="button-group" style="display: none;">
+                <div class="button-group">
                     <button id="yes" onclick="requestAccepted()">Yes</button>
                     <button id="no" onclick="changeSizes()">No</button>
                 </div>
                 </div>
-                <div id="success-message" style="display: none;">
+                <div id="success-message">
                     <span>Yay! Let's be valentines :3</span>
                 </div>
             </div>
