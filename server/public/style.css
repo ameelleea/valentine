@@ -18,6 +18,7 @@ body {
 #success-message,
 #confirm-message h2,
 .message h2 {
+    text-align: center;
   font-family: 'Pacifico';
   color: #400112;
 }
@@ -178,7 +179,7 @@ button:hover {
   color: #8C0327;
 }
 
-#confirm-message div {
+#confirm-message div, .status {
   margin-top: 1rem;
 }
 
