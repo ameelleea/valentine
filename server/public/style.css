@@ -1,3 +1,4 @@
+/* ================================== */
 /* Layout di base */
 * {
   font-family: 'Comic Neue', sans-serif;
@@ -9,28 +10,62 @@ body {
   background-color: #F2F2F2;
 }
 
-.title {
-    font-family: 'Pacifico';
-    color: #730202;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+/* ================================== */
+/* Tipografia comune */
+.title,
+.status,
+#notfound,
+#success-message,
+#confirm-message h2,
+.message h2 {
+  font-family: 'Pacifico';
+  color: #400112;
 }
-/* Titoli */
+
+.title {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  color: #730202;
+}
+
 h3 {
   font-weight: normal;
   color: grey;
 }
 
-/* Hidden elements */
+.click-here {
+  font-size: 12px;
+}
+
+/* ================================== */
+/* Link */
+a {
+  color: #8C0327;
+  text-decoration: none;
+}
+
+a:visited,
+a:active {
+  color: #8C0327;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ================================== */
+/* Elementi nascosti */
 .form-wrapper,
 #confirm-message,
 #notfound,
 .message,
 .button-group,
 #success-message {
-    display: none;
+  display: none;
+  text-align: center;
 }
 
-/* Wrapper principale */
+/* ================================== */
+/* Wrapper e layout flex/grid */
 .flex-clmn {
   display: flex;
   flex-direction: column;
@@ -40,23 +75,69 @@ h3 {
   text-align: center;
 }
 
+.form-wrapper {
+  place-items: center;
+  width: 90%;
+  max-width: 700px;
+  margin: 2.5rem auto 0 auto;
+  padding-top: 2.5rem;
+  border-top: 1px solid #400112;
+  text-align: center;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px 24px;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.field input {
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #F2F2F2;
+}
+
+/* ================================== */
 /* Card */
 .card {
-    background-color: white;
+  background-color: white;
   padding: 2rem;
   border: 1px solid #400112;
   border-radius: 15px;
   margin: 2rem auto;
-  width: 90%;           /* fluido */
-  max-width: 600px;     /* non troppo largo su desktop */
+  width: 90%;
+  max-width: 600px;
   box-shadow:
     0 2px 4px rgba(0,0,0,0.12),
     0 6px 12px rgba(0,0,0,0.08);
 }
 
+/* ================================== */
 /* Bottoni generali */
-button {
+button,
+input {
   font-size: 1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
   font-weight: 600;
   color: white;
   border: none;
@@ -72,67 +153,7 @@ button:hover {
   border: 1px solid #8C0327;
 }
 
-/* Bottoni e input */
-button,
-input {
-  font-size: 1rem;
-  padding: 0.6rem 0.8rem;
-  border-radius: 4px;
-}
-
-input {
-  border: 1px solid #ccc;
-  background-color: #F2F2F2;
-
-}
-
-/* Centro tutto nella pagina */
-.form-wrapper {
-  place-items: center;
-  width: 90%;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-.status, #notfound, #success-message {
-    margin-top: 2rem;
-    text-align: center;
-    font-family: 'Pacifico';
-    color: #400112;
-    font-size: 1.25rem;
-}
-
-/* Griglia principale */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px 24px;
-  width: 100%;
-}
-
-/* Campo: label + input */
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* Label */
-.field label {
-  text-align: left;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-/* Input */
-.field input {
-  font-size: 16px;
-  padding: 10px;
-}
-
-/* Bottone principale */
+/* Bottoni principali nel form */
 .form-grid button {
   grid-column: 1 / -1;
   justify-self: center;
@@ -142,86 +163,66 @@ input {
   margin-top: 1.5rem;
 }
 
-.click-here {
-    font-size: 12px;
-}
-
-#search-form {
-    grid-template-columns: none;
-}
-
-#confirm-message, .message, .form-wrapper, #success-message {
-    text-align: center;
-    border-top: 1px solid #400112;
-    padding-top: 2.5rem;
-    margin-top: 2.5rem;
+/* ================================== */
+/* Messaggi e conferme */
+#confirm-message,
+.message,
+#success-message {
+  margin-top: 2rem;
+  border-top: 1px solid #400112;
+  padding-top: 2.5rem;
 }
 
 #confirm-message h2 {
-    font-family: 'Pacifico';
-    color: #8C0327;
-    font-size: 2rem;
+  font-size: 2rem;
+  color: #8C0327;
 }
 
 #confirm-message div {
-    margin-top: 1rem;
-}
-
-.message h2{
-    color: #8C0327;
-    font-family: 'Pacifico';
+  margin-top: 1rem;
 }
 
 .button-group {
-    margin-top: 2rem;
-}
-
-#yes {
-    background-color: green;
-}
-
-#no {
-    background-color: #730202;
-}
-
-#yes:hover {
-    color: green;
-    background-color: white;
-    border: 1px solid green;
-}
-
-#no:hover {
-    color: #730202;
-    background-color: white;
-    border: 1px solid #730202;
-}
-
-a {
-  color: #8C0327;
-  text-decoration: none;
-}
-
-a:visited {
-  color: #8C0327;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-a:active {
-  color: #8C0327;
+  margin-top: 2rem;
 }
 
 /* ================================== */
-/* Media query per schermi piccoli */
+/* Bottoni sì/no */
+#yes {
+  background-color: green;
+}
+
+#no {
+  background-color: #730202;
+}
+
+#yes:hover {
+  color: green;
+  background-color: white;
+  border: 1px solid green;
+}
+
+#no:hover {
+  color: #730202;
+  background-color: white;
+  border: 1px solid #730202;
+}
+
+/* ================================== */
+/* Altro */
+#search-form {
+  grid-template-columns: none;
+}
+
+/* ================================== */
+/* Media query per mobile */
 @media (max-width: 480px) {
   h3 {
-    font-size: 1.1rem;   /* testo più piccolo su mobile */
+    font-size: 1.1rem;
   }
 
   .form-grid {
-    grid-template-columns: 1fr;  /* 1 colonna su smartphone */
+    grid-template-columns: 1fr;
     gap: 12px 16px;
   }
 
@@ -231,8 +232,7 @@ a:active {
 
   .field input,
   button {
-    font-size: 14px;      /* font leggermente più piccolo */
+    font-size: 14px;
   }
 }
-
 
