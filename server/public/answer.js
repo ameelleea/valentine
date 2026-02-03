@@ -59,9 +59,10 @@ function changeSizes(){
     no.style.fontSize = nonewSize + 'px';
 }
 
-function requestAccepted(){
+async function requestAccepted(){
     document.querySelector(".button-group").style.display = 'none';
     document.querySelector(".message").style.display = 'none';
     document.querySelector("#success-message").style.display = 'block';
     request.status = 'accepted';
+    await modifyStatus(request)
 }

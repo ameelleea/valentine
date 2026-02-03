@@ -11,15 +11,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const jsonFilePath = path.join(__dirname, "data/requests.json");
 
-// Caricamento dati
-function loadRequests() {
+function loadData() {
   const jsonData = fs.readFileSync(jsonFilePath, "utf-8");
   const data = JSON.parse(jsonData);
 
     return data;
 }
 
-// Scrittura dati
 function saveData(data, jsonFilePath) {
   fs.writeFile(jsonFilePath, JSON.stringify(data, null, 2), err => {
     if (err) {
@@ -31,14 +29,13 @@ function saveData(data, jsonFilePath) {
 }
 
 // --- API ---
-//API GET SITI
+//API GET 
 app.get('/requests', (req, res) => {
   try {
-    // Logging della richiesta
     console.log(`\n---\nRequest:\nGET ${req.originalUrl}\n`);
 
     const code = req.query["code"];
-    const data = loadRequests();
+    const data = loadData();
 
     const filtered = data.filter(entry => entry.id === code)[0];
 
@@ -74,27 +71,13 @@ app.get('/answer', (req, res) => {
 });
 
 
-// API PUT
-app.put('/requests/:codice', (req, res) => {
-  console.log(`\n---\nRequest:\nPUT ${req.originalUrl}`);
-  console.log('Body:', JSON.stringify(req.body, null, 2));
-
-
-
-
-
-  const response = { success: true, message: 'Sito aggiornato', sito: updated };
-  console.log(`Response:\n${JSON.stringify(response, null, 2)}\n---`);
-  res.status(200).json(response);
-});
-
 // API POST
 app.post('/requests', (req, res) => {
   console.log(`\n---\nRequest:\nPOST ${req.originalUrl}`);
   console.log('Body:', JSON.stringify(req.body, null, 2));
   const newRequest = req.body;
   console.log(newRequest)
-  const data = loadRequests();
+  const data = loadData();
 
   data.push(newRequest)
 
@@ -110,20 +93,23 @@ app.post('/requests', (req, res) => {
 });
 
 
-// API DELETE
-app.delete('/siti/:codice', (req, res) => {
-  console.log(`\n---\nRequest:\nDELETE ${req.originalUrl}`);
+// API PUT
+app.put('/requests/:codice', (req, res) => {
+    console.log(`\n---\nRequest:\nPUT ${req.originalUrl}`);
+    console.log('Body:', JSON.stringify(req.body, null, 2));
+    console.log(req.params)
+    const codice = req.params.codice;
+    const updated = req.body;
+    const data = loadData();
+    const index = data.findIndex(r => r.id === codice);
 
-  const codice = req.params.codice;
-  let data = loadSitesFromJSON();
-  const originalLength = data.length;
-  data = data.filter(s => s.codice !== codice);
-  if (data.length === originalLength) return res.status(404).json({ error: 'Sito non trovato' });
-  saveData(data, jsonFilePath);
+    if (index === -1) return res.status(404).json({ error: 'Request non trovato' });
+    data[index] = updated;
+    saveData(data, jsonFilePath);
 
-  const response = { success: true, message: `Sito con codice ${req.params.codice} eliminato` };
-  console.log(`Response:\n${JSON.stringify(response, null, 2)}\n---`);
-  res.status(200).json(response);
+    const response = { success: true, message: 'Request updated'};
+    console.log(`Response:\n${JSON.stringify(response, null, 2)}\n---`);
+    res.status(200).json(response);
 });
 
 // Avvia server

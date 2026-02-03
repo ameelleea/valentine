@@ -38,3 +38,24 @@ async function saveRequest(payload){
     console.log('Errore nella POST: ' + error);
   }
 }
+
+//Chiamata API PUT
+async function modifyStatus(request) {
+  console.log(`\n---\nRequest:\nPUT /requests/${request.id}\nBody:\n`, request);
+
+  try{
+    const res = await fetch(`/requests/${request.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(request)
+        });
+  
+    const data = await res.json();
+    console.log(`Response PUT:\nStatus: ${res.status}\nBody:\n`, data, '\n---\n');
+       
+  }catch(error){ 
+    console.error('Errore nella PUT:', error);
+  }
+}
